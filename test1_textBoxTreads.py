@@ -20,10 +20,14 @@ class str_input_checker(threading.Thread):
         while True:
             self.screen.fill((225,225,225))     #fill screen with blank color
             self.events = pygame.event.get()#gets current event
-            if (self.textbox.update(self.events) == True):
-                global string
-                string = self.textbox.get_text() #string is a global variable
-                #print ("worked")
+            
+            if (self.textbox.update(self.events) == True):# if <enter> has been pressed
+                global string#string is a global variable
+                string = self.textbox.get_text()#let string hold what the user has typed
+                pybrary.varToFile("currentSTRING.txt", string)# an exturnal file is the most global of variables is what I like to say
+                pybrary.appFile(fileName, string)
+                self.textbox.clear_text()#clears text
+                
             self.screen.blit(self.textbox.get_surface(), (10, 10))
             pygame.display.update()
             
@@ -33,6 +37,7 @@ def main():#main should only be called at the very beggining when the program is
     pygame.init()
     global string#global variables need to be declared before a value can be assigned
     string = ""#should be up pretty high.. must be higher than the line inputGetting.start() this varable can be edited anytime
+    global fileName
     fileName = str(int(time.time()//1))+"_colorImageInfo.txt"#some reason the time isn't matching my watch but I don't really care enough to do anything about it
     pybrary.appFile(fileName, "")
     """
@@ -59,7 +64,15 @@ def main():#main should only be called at the very beggining when the program is
     screen.fill((225,225,225))
     pygame.display.update()
     inputGetting.start()
-    
+
+    """ okay im going swiming now. So heres what to think about when I start again.
+
+            1. were going to add the functionality to bring up a photo with the file name string
+            2. where should we put this code?
+            3. prob should launce a new thread from inside the str_input_checker thread which will handle loading the image into pygame and displaying it
+
+            4. thats all you should do in the next itteration.... after that think about what comes next and start a  ew file
+"""
     while True:
         if (string != ""): #if its not a completly blank string
             print (string)
