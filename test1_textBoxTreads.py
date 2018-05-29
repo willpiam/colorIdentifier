@@ -76,7 +76,6 @@ def main():#main should only be called at the very beggining when the program is
     while True:
         if (string != ""): #if its not a completly blank string
             print (string)
-            pybrary.appFile(fileName, string)
             break
             
         
